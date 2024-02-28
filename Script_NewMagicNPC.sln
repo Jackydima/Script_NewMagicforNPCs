@@ -1,9 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script_LearnPoints", "Script_LearnPoints.vcxproj", "{2646516C-77E0-45A0-BD2F-7B986171B28F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script", "..\..\Script.vcxproj", "{DF45B4AC-7FD2-4C19-9E70-6EE4DC96B604}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "..\..\Engine.vcxproj", "{F385328B-69B2-4E58-B520-9562EFD53AD8}"
@@ -18,16 +16,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Importer", "..\..\Importer.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Asmjit", "..\..\Shared\Asmjit\Asmjit.vcxproj", "{32A1BE07-45F2-4B54-9CF0-992DFFC8D06A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script_NewMagicNPC", "Script_NewMagicNPC.vcxproj", "{2BEEFB5B-5F6E-40C8-8DF9-A83A19AD7C60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2646516C-77E0-45A0-BD2F-7B986171B28F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2646516C-77E0-45A0-BD2F-7B986171B28F}.Debug|Win32.Build.0 = Debug|Win32
-		{2646516C-77E0-45A0-BD2F-7B986171B28F}.Release|Win32.ActiveCfg = Release|Win32
-		{2646516C-77E0-45A0-BD2F-7B986171B28F}.Release|Win32.Build.0 = Release|Win32
 		{DF45B4AC-7FD2-4C19-9E70-6EE4DC96B604}.Debug|Win32.ActiveCfg = Debug|Win32
 		{DF45B4AC-7FD2-4C19-9E70-6EE4DC96B604}.Debug|Win32.Build.0 = Debug|Win32
 		{DF45B4AC-7FD2-4C19-9E70-6EE4DC96B604}.Release|Win32.ActiveCfg = Release|Win32
@@ -56,6 +52,10 @@ Global
 		{32A1BE07-45F2-4B54-9CF0-992DFFC8D06A}.Debug|Win32.Build.0 = Debug|Win32
 		{32A1BE07-45F2-4B54-9CF0-992DFFC8D06A}.Release|Win32.ActiveCfg = Release|Win32
 		{32A1BE07-45F2-4B54-9CF0-992DFFC8D06A}.Release|Win32.Build.0 = Release|Win32
+		{2BEEFB5B-5F6E-40C8-8DF9-A83A19AD7C60}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2BEEFB5B-5F6E-40C8-8DF9-A83A19AD7C60}.Debug|Win32.Build.0 = Debug|Win32
+		{2BEEFB5B-5F6E-40C8-8DF9-A83A19AD7C60}.Release|Win32.ActiveCfg = Release|Win32
+		{2BEEFB5B-5F6E-40C8-8DF9-A83A19AD7C60}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

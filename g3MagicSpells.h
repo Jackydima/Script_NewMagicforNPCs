@@ -10,6 +10,7 @@
 #define G3FROSTWAVE "It_Spell_FrostWave"
 #define G3HEATWAVE "It_Spell_HeatWave"
 #define G3SUMMONLIGHTNING "It_Spell_SummonLightning"
+#define G3METEOR "It_Spell_Meteor"
 #define G3FIRERAIN "It_Spell_Firerain"
 #define G3HAILSTORM "It_Spell_Hailstorm"
 #define G3SUMMONDEMON "It_Spell_SummonDemon"

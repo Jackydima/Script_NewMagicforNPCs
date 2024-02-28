@@ -171,7 +171,7 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
             magicpower = LOW;
         }
         if (magicpower == LOW) {
-            if ( distance < ( GEFloat )675.0 ) {
+            if ( distance < ( GEFloat )725.0 ) {
                 //std::cout << G3HEATWAVE << std::endl;
                 spell = Template ( bCString ( G3HEATWAVE ) );
                 stack = currentEntityPtr->Inventory.AssureItems ( spell , 0 , 1 );
@@ -209,7 +209,7 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
             magicpower = LOW;
         }
         if (magicpower == LOW) {
-            if ( distance < ( GEFloat )675.0 ) {
+            if ( distance < ( GEFloat )725.0 ) {
                 //if ( GE_DEBUG ) //std::cout << G3FROSTWAVE << std::endl;
                 spell = Template ( bCString ( G3FROSTWAVE ) );
                 stack = currentEntityPtr->Inventory.AssureItems ( spell , 0 , 1 );
@@ -256,7 +256,7 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
             }
         }
         //if ( GE_DEBUG ) //std::cout << G3LIGHNINGBOLD << std::endl;
-        spell = Template(bCString(G3LIGHNINGBOLD));
+        spell = Template(bCString( G3LIGHNINGBOLD ));
         stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
         retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
         *(int*)(retAdr) = stack;
@@ -265,7 +265,7 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
     else {
         if (magicpower == HIGH) {
             //if ( GE_DEBUG ) //std::cout << G3FIRERAIN << std::endl;
-            spell = Template(bCString(G3FIRERAIN));
+            spell = Template(bCString(G3METEOR));
             stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
             retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
             *(int*)(retAdr) = stack;
@@ -307,7 +307,7 @@ void GE_STDCALL AI_StartCastPhaseFix ()
     Entity currentSpell;
     if ( currentItemRH.IsItem ( ) ) {
         currentSpell = currentItemRH.Item.GetSpell();
-        Entity* target = ( Entity* )( Hook_AI_StartCastPhase.GetImmEsi<GEInt> ( ) + 0xb0 );
+        Entity* target = ( Entity* )( Hook_AI_StartCastPhase.GetImmEsi<GEInt> ( ) + 0xb0 ); // Or .GetCurrentTarget()...
         caster->NPC.SetSpellTarget ( *target );
         caster->Interaction.SetSpell ( currentSpell );
     }
@@ -325,7 +325,6 @@ gSScriptInit const * GE_STDCALL ScriptInit( void )
     Hook_NewMagicSystem
         .Prepare(RVA_ScriptGame(0x49890), &NewMagicSystem, mCBaseHook::mEHookType_Mixed, mCRegisterBase::mERegisterType_Edi)
         .Hook();
-
 
     return &GetScriptInit();
 }

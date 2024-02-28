@@ -84,7 +84,7 @@ GEBool GE_STDCALL hasMember ( Entity* entityMem ) {
 GEBool isFireMage ( Entity* p_entity, bCString roleDescription ) {
 	GEInt arrSize = sizeof ( fireMages ) / sizeof ( bCString );
 	for ( GEInt i = 0; i < arrSize; i++ ) {
-		if ( p_entity->GetName() == fireMages[i] ) {
+		if ( p_entity->GetName().Contains(fireMages[i]) ) {
 			return GETrue;
 		}
 	}
@@ -96,7 +96,7 @@ GEBool isFireMage ( Entity* p_entity, bCString roleDescription ) {
 GEBool isBlackMage ( Entity* p_entity, bCString roleDescription ) {
 	GEInt arrSize = sizeof ( blackMages ) / sizeof ( bCString );
 	for ( GEInt i = 0; i < arrSize; i++ ) {
-		if ( p_entity->GetName ( ) == blackMages[i] ) {
+		if ( p_entity->GetName ( ).Contains (blackMages[i]) ) {
 			return GETrue;
 		}
 	}
@@ -107,7 +107,7 @@ GEBool isBlackMage ( Entity* p_entity, bCString roleDescription ) {
 GEBool isWaterMage ( Entity* p_entity, bCString roleDescription) {
 	GEInt arrSize = sizeof ( waterMages ) / sizeof ( bCString );
 	for ( GEInt i = 0; i < arrSize; i++ ) {
-		if ( p_entity->GetName ( ) == waterMages[i] ) {
+		if ( p_entity->GetName ( ).Contains ( waterMages[i] )) {
 			return GETrue;
 		}
 	}

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2646516C-77E0-45A0-BD2F-7B986171B28F}</ProjectGuid>
+    <ProjectGuid>{2BEEFB5B-5F6E-40C8-8DF9-A83A19AD7C60}</ProjectGuid>
     <RootNamespace>Script_LearnPoints</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -63,7 +63,8 @@
     <ClCompile Include="..\..\Shared\util\Logging.cpp" />
     <ClCompile Include="..\..\Shared\util\Memory.cpp" />
     <ClCompile Include="..\..\Shared\util\Util.cpp" />
-    <ClCompile Include="Script_LearnPoints.cpp" />
+    <ClCompile Include="Script_NewMagicNPC.cpp" />
+    <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Shared\gui\ge_hudstaticnpc.h" />
@@ -73,7 +74,9 @@
     <ClInclude Include="..\..\Shared\util\Logging.h" />
     <ClInclude Include="..\..\Shared\util\Memory.h" />
     <ClInclude Include="..\..\Shared\util\Util.h" />
-    <ClInclude Include="Script_LearnPoints.h" />
+    <ClInclude Include="g3MagicSpells.h" />
+    <ClInclude Include="Script_NewMagicNPC.h" />
+    <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Shared\util\Logging.inl" />
