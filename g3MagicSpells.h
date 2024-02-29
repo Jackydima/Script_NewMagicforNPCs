@@ -26,6 +26,7 @@
 #define G3ICELANCE "It_Spell_Icelance"
 #define G3SLEEP "It_Spell_Sleep"
 #define G3POISON "It_Spell_Poison" // TODO: Change back
+#define G3FEAR "It_Spell_Fear"
 #define G3ISFIREMAGE "IsFiremage"
 #define G3ISWATERMAGE "IsWatermage"
 #define G3ISBLACKMAGE "IsBlackmage"

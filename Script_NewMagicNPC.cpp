@@ -187,12 +187,17 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
                 spell = Template(bCString(G3SUMMONICEGOLEM));
                 break;
             }
-            magicpower = LOW;
+            spell = Template ( G3ICEBLOCK );
+            break;
         }
         if (magicpower == LOW) {
             if ( distance < ( GEFloat )725.0 ) {
                 //if ( GE_DEBUG ) //std::cout << G3FROSTWAVE << std::endl;
                 spell = Template ( bCString ( G3FROSTWAVE ) );
+                break;
+            }
+            if ( random <= 60 ) {
+                spell = Template ( G3SLEEP );
                 break;
             }
         }
@@ -213,10 +218,10 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
             }
             magicpower = LOW;
         }
-        if (magicpower == LOW && !currentTarget.NPC.IsPoisoned()) {
-            if ( distance > 674 ) {
+        if (magicpower == LOW ) {
                 //if ( GE_DEBUG ) //std::cout << G3POISON << std::endl;
-                spell = Template ( bCString ( G3POISON ) );
+            if ( !hasMember ( currentEntityPtr ) ) {
+                spell = Template ( bCString ( G3SUMMONSKELETON ) );
                 break;
             }
         }
@@ -239,8 +244,10 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
         }
         if ( magicpower == LOW ) {
             //if ( GE_DEBUG ) //std::cout << G3SLEEP << std::endl;
-            spell = Template ( bCString ( G3SLEEP ) );
-            break;
+            if ( random <= 60 ) {
+                spell = Template ( bCString ( G3SLEEP ) );
+                break;
+            }
         }
         //if ( GE_DEBUG ) //std::cout << G3FIREBALL << std::endl;
         spell = Template ( bCString ( G3FIREBALL ) );
@@ -281,6 +288,16 @@ void GE_STDCALL AI_StartCastPhaseFix ()
     }
 }
 
+static mCFunctionHook Hook_AssessTarget;
+
+GEInt AssessTarget ( gCScriptProcessingUnit* a_pSPU , Entity* a_pSelfEntity , Entity* a_pOtherEntity , GEU32 a_iArgs ) {
+    INIT_SCRIPT_EXT ( Victim , Damager );
+    if ( Victim == Entity::GetPlayer ( ) ) {
+        return 0;
+    }
+    return Hook_AssessTarget.GetOriginalFunction( &AssessTarget )( a_pSPU , a_pSelfEntity , a_pOtherEntity , a_iArgs );
+}
+
 extern "C" __declspec( dllexport )
 gSScriptInit const * GE_STDCALL ScriptInit( void )
 {
@@ -293,6 +310,9 @@ gSScriptInit const * GE_STDCALL ScriptInit( void )
     Hook_NewMagicSystem
         .Prepare(RVA_ScriptGame(0x49890), &NewMagicSystem, mCBaseHook::mEHookType_Mixed, mCRegisterBase::mERegisterType_Edi)
         .Hook();
+
+    // Fixes the AI Behaviour if the PC_Hero gets some MagicFunctions
+    Hook_AssessTarget.Hook( GetScriptAdminExt ( ).GetScript ("AssessTarget")->m_funcScript, &AssessTarget, mCBaseHook::mEHookType_OnlyStack );
 
     return &GetScriptInit();
 }
