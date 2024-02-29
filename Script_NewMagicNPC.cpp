@@ -25,8 +25,6 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
     int random = Entity::GetRandomNumber(1000);
 
     //std::cout << "Random: " << random << std::endl;
-
-    bCString plunder5 = currentEntityPtr->Inventory.GetTreasureSet5().GetName();
     //std::cout << plunder5 << "\n";
     Entity currentTarget = currentEntityPtr->NPC.GetCurrentTarget();
     GEU32 NPC_Level = currentEntityPtr->NPC.GetProperty < PSNpc::PropertyLevel> ( );
@@ -89,7 +87,9 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
         *(int*)(retAdr) = stack;
         return;
     case gESpecies_IceGolem:
-        spell = Template(bCString(G3ICELANCE));
+        spell = Template(bCString( G3ICEBLOCK ));
+        if ( !spell.IsValid() )
+            spell = Template ( G3ICELANCE );
         stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
         retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
         *(int*)(retAdr) = stack;
@@ -150,23 +150,18 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
         ////if ( GE_DEBUG ) //std::cout << "LOW" << std::endl;
     }
 
-    if (plunder5 == G3ISFIREMAGE || magetype == MageType_Firemage ) {
+    switch (magetype) {
+    case MageType_Firemage:
         if (magicpower == HIGH) {
             //if ( GE_DEBUG ) //std::cout << G3FIRERAIN << std::endl;
-            spell = Template(bCString(G3FIRERAIN));
-            stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-            retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-            *(int*)(retAdr) = stack;
-            return;
+            spell = Template ( bCString ( G3FIRERAIN ) );
+            break;
         }
         if (magicpower == MID) {
             //if ( GE_DEBUG ) //std::cout << G3SUMMONFIREGOLEM << std::endl;
             if (!hasMember(currentEntityPtr)) {
                 spell = Template(bCString(G3SUMMONFIREGOLEM));
-                stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-                retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-                *(int*)(retAdr) = stack;
-                return;
+                break;
             }
             magicpower = LOW;
         }
@@ -174,37 +169,23 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
             if ( distance < ( GEFloat )725.0 ) {
                 //std::cout << G3HEATWAVE << std::endl;
                 spell = Template ( bCString ( G3HEATWAVE ) );
-                stack = currentEntityPtr->Inventory.AssureItems ( spell , 0 , 1 );
-                retAdr = static_cast< DWORD >( Hook_NewMagicSystem.GetImmEdi<DWORD> ( ) );
-                *( int* )( retAdr ) = stack;
-                return;
+                break;
             }
         }
-
         //if ( GE_DEBUG ) //std::cout << G3FIREBALL << std::endl;
-         spell = Template(bCString(G3FIREBALL));
-         stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-         retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-         *(int*)(retAdr) = stack;
-         return;
-    }
-    else if (plunder5 == G3ISWATERMAGE || magetype == MageType_Watermage ) {
+        spell = Template(bCString(G3FIREBALL));
+        break;
+    case MageType_Watermage:
         if (magicpower == HIGH) {
-            if (GE_DEBUG) //std::cout << G3HAILSTORM << std::endl;
+            //if (GE_DEBUG) //std::cout << G3HAILSTORM << std::endl;
             spell = Template(bCString(G3HAILSTORM));
-            stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-            retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-            *(int*)(retAdr) = stack;
-            return;
+            break;
         }
         if (magicpower == MID) {
             //if ( GE_DEBUG ) //std::cout << G3SUMMONICEGOLEM << std::endl;
             if (!hasMember(currentEntityPtr)) {
                 spell = Template(bCString(G3SUMMONICEGOLEM));
-                stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-                retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-                *(int*)(retAdr) = stack;
-                return;
+                break;
             }
             magicpower = LOW;
         }
@@ -212,92 +193,79 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
             if ( distance < ( GEFloat )725.0 ) {
                 //if ( GE_DEBUG ) //std::cout << G3FROSTWAVE << std::endl;
                 spell = Template ( bCString ( G3FROSTWAVE ) );
-                stack = currentEntityPtr->Inventory.AssureItems ( spell , 0 , 1 );
-                retAdr = static_cast< DWORD >( Hook_NewMagicSystem.GetImmEdi<DWORD> ( ) );
-                *( int* )( retAdr ) = stack;
-                return;
+                break;
             }
         }
         //if ( GE_DEBUG ) //std::cout << G3ICELANCE << std::endl;
         spell = Template(bCString(G3ICELANCE));
-        stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-        retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-        *(int*)(retAdr) = stack;
-        return;
-    }
-    else if (plunder5 == G3ISBLACKMAGE || magetype == MageType_Blackmage ) {
+        break;
+    case MageType_Blackmage:
         if (magicpower == HIGH) {
             //if ( GE_DEBUG ) //std::cout << G3SUMMONLIGHTNING << std::endl;
             spell = Template(bCString(G3SUMMONLIGHTNING));
-            stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-            retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-            *(int*)(retAdr) = stack;
-            return;
+            break;
         }
         if (magicpower == MID) {
             //if ( GE_DEBUG ) //std::cout << G3SUMMONDEMON << std::endl;
             if (!hasMember(currentEntityPtr)) {
                 spell = Template(bCString(G3SUMMONDEMON));
-                stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-                retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-                *(int*)(retAdr) = stack;
-                return;
+                break;
             }
             magicpower = LOW;
         }
-        if (magicpower == LOW) {
+        if (magicpower == LOW && !currentTarget.NPC.IsPoisoned()) {
             if ( distance > 674 ) {
                 //if ( GE_DEBUG ) //std::cout << G3POISON << std::endl;
                 spell = Template ( bCString ( G3POISON ) );
-                stack = currentEntityPtr->Inventory.AssureItems ( spell , 0 , 1 );
-                retAdr = static_cast< DWORD >( Hook_NewMagicSystem.GetImmEdi<DWORD> ( ) );
-                *( int* )( retAdr ) = stack;
-                return;
+                break;
             }
         }
         //if ( GE_DEBUG ) //std::cout << G3LIGHNINGBOLD << std::endl;
         spell = Template(bCString( G3LIGHNINGBOLD ));
-        stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-        retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-        *(int*)(retAdr) = stack;
-        return;
-    }
-    else {
-        if (magicpower == HIGH) {
+        break;
+    default:
+        if ( magicpower == HIGH ) {
             //if ( GE_DEBUG ) //std::cout << G3FIRERAIN << std::endl;
-            spell = Template(bCString(G3METEOR));
-            stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-            retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-            *(int*)(retAdr) = stack;
-            return;
+            spell = Template ( bCString ( G3METEOR ) );
+            break;
         }
-        if (magicpower == MID) {
+        if ( magicpower == MID ) {
             //if ( GE_DEBUG ) //std::cout << G3SUMMONGOLEM << std::endl;
-            if (!hasMember(currentEntityPtr)) {
-                spell = Template(bCString(G3SUMMONGOLEM));
-                stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-                retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-                *(int*)(retAdr) = stack;
-                return;
+            if ( !hasMember ( currentEntityPtr ) ) {
+                spell = Template ( bCString ( G3SUMMONGOLEM ) );
+                break;
             }
             magicpower = LOW;
         }
-        if (magicpower == LOW) {
+        if ( magicpower == LOW ) {
             //if ( GE_DEBUG ) //std::cout << G3SLEEP << std::endl;
-            spell = Template(bCString(G3SLEEP));
-            stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-            retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-            *(int*)(retAdr) = stack;
-            return;
+            spell = Template ( bCString ( G3SLEEP ) );
+            break;
         }
         //if ( GE_DEBUG ) //std::cout << G3FIREBALL << std::endl;
-        spell = Template(bCString(G3FIREBALL));
-        stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
-        retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
-        *(int*)(retAdr) = stack;
-        return;
-
+        spell = Template ( bCString ( G3FIREBALL ) );
+        break;
     }
+
+    if ( !spell.IsValid ( ) ) {
+        switch ( magetype ) {
+        case MageType_Blackmage:
+            spell = Template ( G3LIGHNINGBOLD );
+            break;
+        case MageType_Firemage:
+            spell = Template ( G3FIREBALL );
+            break;
+        case MageType_Watermage:
+            spell = Template ( G3ICELANCE );
+            break;
+        default:
+            spell = Template ( G3FIREBALL );
+        }
+    }
+    stack = currentEntityPtr->Inventory.AssureItems ( spell , 0 , 1 );
+    retAdr = static_cast< DWORD >( Hook_NewMagicSystem.GetImmEdi<DWORD> ( ) );
+    *( int* )( retAdr ) = stack;
+    //return;
 }
 
 void GE_STDCALL AI_StartCastPhaseFix () 

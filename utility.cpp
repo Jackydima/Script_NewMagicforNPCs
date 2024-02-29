@@ -117,19 +117,20 @@ GEBool isWaterMage ( Entity* p_entity, bCString roleDescription) {
 }
 
 MageType getMageType ( Entity* p_entity ) {
+	bCString plunder5 = p_entity->Inventory.GetTreasureSet5 ( ).GetName ( );
 	GEChar* roleDescriptionPointer = ( GEChar* )*( DWORD* )( *( DWORD* )( &p_entity->NPC ) + 0x1C ); // Unsafe Access
 	bCString roleDescription = "";
 	//std::cout << "Address of entity: " << p_entity << "\n";
 	//std::cout << "Address of entity: " << &p_entity->NPC << "\n";
 	if ( roleDescriptionPointer != nullptr ) //std::cout << "Role?: " << roleDescriptionPointer << "\n";
 	if ( roleDescriptionPointer != nullptr ) roleDescription = bCString ( roleDescriptionPointer );
-	if ( isWaterMage ( p_entity, roleDescription ) ) {
+	if ( plunder5.Contains("IsWatermage") || isWaterMage ( p_entity , roleDescription ) ) {
 		return MageType_Watermage;
 	}
-	else if ( isFireMage ( p_entity, roleDescription ) ) {
+	else if ( plunder5.Contains ( "IsFiremage" ) || isFireMage ( p_entity, roleDescription ) ) {
 		return MageType_Firemage;
 	}
-	else if (isBlackMage( p_entity, roleDescription )) {
+	else if ( plunder5.Contains ( "IsBlackmage" ) || isBlackMage( p_entity, roleDescription )) {
 		return MageType_Blackmage;
 	}
 	return MageType_None;

@@ -6,6 +6,7 @@
 */
 
 #define G3Healing "It_Spell_Healing"
+#define G3ICEBLOCK "It_Spell_IceBlock"
 #define G3LIGHNINGBOLD "It_Spell_Lightningbolt"
 #define G3FROSTWAVE "It_Spell_FrostWave"
 #define G3HEATWAVE "It_Spell_HeatWave"
@@ -28,3 +29,4 @@
 #define G3ISFIREMAGE "IsFiremage"
 #define G3ISWATERMAGE "IsWatermage"
 #define G3ISBLACKMAGE "IsBlackmage"
+
