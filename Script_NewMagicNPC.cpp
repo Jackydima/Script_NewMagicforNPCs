@@ -152,6 +152,10 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
 
     switch (magetype) {
     case MageType_Firemage:
+        if ( powerLevel >= 30 && GetScriptAdmin ( ).CallScriptFromScript ( "IsEvil" , &currentTarget , &None , 0 ) ) {
+            spell = Template ( G3DESTROYEVIL );
+            break;
+        }
         if (magicpower == HIGH) {
             //if ( GE_DEBUG ) //std::cout << G3FIRERAIN << std::endl;
             spell = Template ( bCString ( G3FIRERAIN ) );
