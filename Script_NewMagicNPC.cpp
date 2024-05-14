@@ -81,7 +81,17 @@ void GE_FASTCALL NewMagicSystem(Entity * currentEntityPtr)
         return;
     case gESpecies_FireGolem:
     case gESpecies_Dragon:
-        spell = Template(bCString(G3FIREBALL));
+        //TODO : Union Dragon Support 
+        if ( currentEntityPtr->GetName ( ).Contains ( "Ice" ) || currentEntityPtr->GetName ( ).Contains ( "Blue" ) ) {
+            spell = Template ( bCString ( G3ICELANCE ) );
+        }
+        else if ( currentEntityPtr->GetName ( ).Contains ( "Stone" ) || currentEntityPtr->GetName ( ).Contains ( "Black" ) )
+        {
+            spell = Template ( bCString ( G3LIGHNINGBOLD ) );
+        }
+        else {
+            spell = Template ( bCString ( G3FIREBALL ) );
+        }
         stack = currentEntityPtr->Inventory.AssureItems(spell, 0, 1);
         retAdr = static_cast<DWORD>(Hook_NewMagicSystem.GetImmEdi<DWORD>());
         *(int*)(retAdr) = stack;
